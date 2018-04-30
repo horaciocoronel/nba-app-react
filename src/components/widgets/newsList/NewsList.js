@@ -31,7 +31,9 @@ export class NewsList extends Component {
       axios.get(`${URL}/articles?_start=${start}&_end=${end}`)
           .then(res => {
             this.setState({
-              items: [...this.state.items, ...res.data]
+              items: [...this.state.items, ...res.data],
+              start,
+              end
             })
           })
     }
@@ -39,7 +41,6 @@ export class NewsList extends Component {
     loadMore = () => {
       let end = this.state.end + this.state.amount;
       this.request(this.state.end, end);
-      this.setState({ end });
     }
     
 
