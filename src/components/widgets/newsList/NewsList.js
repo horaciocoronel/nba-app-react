@@ -5,10 +5,12 @@ import axios from 'axios';
 import { URL } from '../../../config';
 import styles from './newsList.css';
 import Button from '../buttons/Buttons';
+import CardInfo from '../../widgets/cardInfo/CardInfo';
 
 export class NewsList extends Component {
     state = {
         items: [],
+        teams: [],
         start: this.props.start,
         end: this.props.start + this.props.amount,
         amount: this.props.amount
@@ -19,6 +21,12 @@ export class NewsList extends Component {
     }
 
     request = (start, end) => {
+      if(this.state.teams.length < 1) {
+        axios.get(`${URL}/teams`)
+          .then(res => {
+            this.setState({teams: res.data})
+          })
+      }
       axios.get(`${URL}/articles?_start=${start}&_end=${end}`)
           .then(res => {
             this.setState({
@@ -50,6 +58,7 @@ export class NewsList extends Component {
               <div>
                 <div className={styles.newsList_item}>
                   <Link to={`articles/${item.id}`}>
+                  <CardInfo teams={this.state.teams} teamId={item.team} articleDate={item.date} />
                     <h2>{item.title}</h2>
                   </Link>
                 </div>
