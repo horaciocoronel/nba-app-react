@@ -6,6 +6,7 @@ import { URL } from '../../../config';
 import styles from './newsList.css';
 import Button from '../buttons/Buttons';
 import CardInfo from '../../widgets/cardInfo/CardInfo';
+import VideosList from '../videosList/VideosList';
 
 export class NewsList extends Component {
     state = {
@@ -85,6 +86,13 @@ export class NewsList extends Component {
           type="loadMore"
           loadMore={this.loadMore}
           cta={"Load More News"}
+        />
+        <VideosList 
+          type="card"
+          title={true}
+          loadMore={false}
+          start={0}
+          amount={3}
         />
       </div>
     )
